@@ -13,6 +13,7 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { SEALS, TIERS } from "../data/seals";
 import TierRow from "./TierRow";
 import SealCard from "./SealCard";
+import Lightbox from "./Lightbox";
 
 function findContainer(items, id) {
   if (id in items) return id;
@@ -72,6 +73,7 @@ function loadState() {
       if (missing.length > 0) parsed.pool = [...parsed.pool, ...missing];
       return parsed;
     }
+    // eslint-disable-next-line no-empty
   } catch {}
   return null;
 }
@@ -89,6 +91,10 @@ function buildInitialState() {
 }
 
 export default function TierList() {
+  const [lightboxSeal, setLightboxSeal] = useState(null);
+
+  const openLightbox = (seal) => setLightboxSeal(seal);
+  const closeLightbox = () => setLightboxSeal(null);
   const [items, setItems] = useState(() => {
     // URL hash takes priority (shared link), then localStorage, then default
     const hashState = hashToState(window.location.hash);
@@ -109,6 +115,7 @@ export default function TierList() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       window.history.replaceState(null, "", stateToHash(state));
+      // eslint-disable-next-line no-empty
     } catch {}
   }
 
@@ -207,52 +214,70 @@ export default function TierList() {
   const ranked = TIERS.reduce((n, t) => n + items[t].length, 0);
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={(args) => {
-        const pointer = pointerWithin(args);
-        return pointer.length > 0 ? pointer : rectIntersection(args);
-      }}
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-      onDragCancel={handleDragCancel}
-    >
-      <div className="tierlist">
-        <header className="tierlist-header">
-          <div className="header-left">
-            <h1>A2C University Seal Tier List</h1>
-            <p>
-              US News 2026 Top 150(ish) US universities were scraped and seals
-              taken from each school's official Wikipedia page. Contact
-              @gentoouinely on Discord for feedback.
-            </p>
-            <span className="ranked-count">
-              {ranked} / {SEALS.length} ranked
-            </span>
-          </div>
-          <div className="header-actions">
-            <button className="copy-btn" onClick={handleCopyLink}>
-              {copyLabel}
-            </button>
-            <button className="reset-btn" onClick={handleReset}>
-              Reset
-            </button>
-          </div>
-        </header>
+    <>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={(args) => {
+          const pointer = pointerWithin(args);
+          return pointer.length > 0 ? pointer : rectIntersection(args);
+        }}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+        onDragCancel={handleDragCancel}
+      >
+        <div className="tierlist">
+          <header className="tierlist-header">
+            <div className="header-left">
+              <h1>A2C University Seal Tier List</h1>
+              <h2>double click an icon to enlarge it</h2>
+              <p>
+                US News 2026 Top 150(ish) US universities were scraped and seals
+                taken from each school's official Wikipedia page. Contact
+                @gentoouinely on Discord for feedback.
+              </p>
+              <span className="ranked-count">
+                {ranked} / {SEALS.length} ranked
+              </span>
+            </div>
+            <div className="header-actions">
+              <button className="copy-btn" onClick={handleCopyLink}>
+                {copyLabel}
+              </button>
+              <button className="reset-btn" onClick={handleReset}>
+                Reset
+              </button>
+            </div>
+          </header>
 
-        <div className="tiers-container">
-          {TIERS.map((tier) => (
-            <TierRow key={tier} tier={tier} items={items[tier]} seals={SEALS} />
-          ))}
+          <div className="tiers-container">
+            {TIERS.map((tier) => (
+              <TierRow
+                key={tier}
+                tier={tier}
+                items={items[tier]}
+                seals={SEALS}
+                onOpen={openLightbox}
+              />
+            ))}
+          </div>
+
+          <TierRow
+            tier="pool"
+            items={items.pool}
+            seals={SEALS}
+            isPool
+            onOpen={openLightbox}
+          />
         </div>
 
-        <TierRow tier="pool" items={items.pool} seals={SEALS} isPool />
-      </div>
-
-      <DragOverlay dropAnimation={null}>
-        {activeSeal ? <SealCard seal={activeSeal} overlay /> : null}
-      </DragOverlay>
-    </DndContext>
+        <DragOverlay dropAnimation={null}>
+          {activeSeal ? <SealCard seal={activeSeal} overlay /> : null}
+        </DragOverlay>
+      </DndContext>
+      {lightboxSeal ? (
+        <Lightbox seal={lightboxSeal} onClose={closeLightbox} />
+      ) : null}
+    </>
   );
 }

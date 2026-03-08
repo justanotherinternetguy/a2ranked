@@ -3,7 +3,13 @@ import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import SealCard from "./SealCard";
 import { TIER_COLORS } from "../data/seals";
 
-export default function TierRow({ tier, items, seals, isPool = false }) {
+export default function TierRow({
+  tier,
+  items,
+  seals,
+  isPool = false,
+  onOpen,
+}) {
   const { setNodeRef, isOver } = useDroppable({ id: tier });
 
   const tierSeals = items
@@ -26,7 +32,7 @@ export default function TierRow({ tier, items, seals, isPool = false }) {
           className={`tier-items${isOver ? " tier-items--over" : ""}${tierSeals.length === 0 ? " tier-items--empty" : ""}`}
         >
           {tierSeals.map((seal) => (
-            <SealCard key={seal.id} seal={seal} />
+            <SealCard key={seal.id} seal={seal} onOpen={onOpen} />
           ))}
           {tierSeals.length === 0 && !isPool && (
             <span className="tier-empty-hint">Drop seals here</span>

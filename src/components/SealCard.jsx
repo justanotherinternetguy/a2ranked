@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-export default function SealCard({ seal, overlay = false }) {
+export default function SealCard({ seal, overlay = false, onOpen }) {
   const {
     attributes,
     listeners,
@@ -24,12 +24,13 @@ export default function SealCard({ seal, overlay = false }) {
       ref={setNodeRef}
       style={style}
       className={`seal-card${overlay ? " seal-card--overlay" : ""}`}
+      onDoubleClick={() => onOpen?.(seal)}
       title={seal.name}
       {...attributes}
       {...listeners}
     >
       <img
-        src={`/seals/${seal.file.replace(/ /g, '%20')}`}
+        src={`/seals/${seal.file.replace(/ /g, "%20")}`}
         alt={seal.name}
         loading="lazy"
         draggable={false}

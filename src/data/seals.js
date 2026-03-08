@@ -529,7 +529,7 @@ export const SEALS = [
   {
     id: "University of Georgia",
     name: "University of Georgia",
-    file: "University of Georgia.svg",
+    file: "University of Georgia.png",
   },
   {
     id: "University of Houston",
