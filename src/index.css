@@ -1,0 +1,242 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+/* ── Layout ─────────────────────────────────────────── */
+.tierlist {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.tierlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0 16px;
+  border-bottom: 1px solid #2d3748;
+  margin-bottom: 12px;
+}
+
+.header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.tierlist-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f7fafc;
+}
+
+.ranked-count {
+  font-size: 0.85rem;
+  color: #718096;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.copy-btn {
+  background: #2d3748;
+  color: #e2e8f0;
+  border: 1px solid #4a5568;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  min-width: 100px;
+}
+
+.copy-btn:hover {
+  background: #4a5568;
+  border-color: #718096;
+}
+
+
+  background: #2d3748;
+  color: #e2e8f0;
+  border: 1px solid #4a5568;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.reset-btn:hover {
+  background: #4a5568;
+  border-color: #718096;
+}
+
+/* ── Tier rows ──────────────────────────────────────── */
+.tiers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.tier-row {
+  display: flex;
+  align-items: stretch;
+  min-height: 90px;
+  border: 1px solid #2d3748;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #1a1f2e;
+}
+
+.tier-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  min-width: 60px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #111;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Tier items area ────────────────────────────────── */
+.tier-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+  padding: 5px;
+  flex: 1;
+  min-height: 88px;
+  transition: background 0.15s;
+}
+
+.tier-items--over {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tier-items--empty {
+  align-items: center;
+}
+
+.tier-empty-hint {
+  color: #4a5568;
+  font-size: 0.8rem;
+  font-style: italic;
+  padding-left: 6px;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Pool ───────────────────────────────────────────── */
+.tier-row--pool {
+  flex-direction: column;
+  border-color: #2d3748;
+  background: #13161f;
+  min-height: 160px;
+  margin-top: 8px;
+}
+
+.pool-header {
+  padding: 8px 12px 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  user-select: none;
+}
+
+.tier-row--pool .tier-items {
+  min-height: 120px;
+  padding: 6px;
+}
+
+/* ── Seal card ──────────────────────────────────────── */
+.seal-card {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border-radius: 4px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  flex-shrink: 0;
+  user-select: none;
+  touch-action: none;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.seal-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.seal-card img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Tooltip */
+.seal-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a202c;
+  color: #f7fafc;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #4a5568;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 100;
+  max-width: 220px;
+  white-space: normal;
+  text-align: center;
+}
+
+.seal-card:hover .seal-tooltip {
+  opacity: 1;
+}
+
+/* Drag overlay */
+.seal-card--overlay {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  transform: scale(1.1) rotate(2deg);
+}
