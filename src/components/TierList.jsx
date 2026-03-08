@@ -222,6 +222,11 @@ export default function TierList() {
         <header className="tierlist-header">
           <div className="header-left">
             <h1>University Seal Tier List</h1>
+            <p>
+              US News 2026 Top 150(ish) US universities were scraped and seals
+              taken from each school's official Wikipedia page. Contact
+              @gentoouinely on Discord for feedback.
+            </p>
             <span className="ranked-count">
               {ranked} / {SEALS.length} ranked
             </span>
