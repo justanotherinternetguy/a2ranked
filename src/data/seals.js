@@ -228,7 +228,7 @@ export const SEALS = [
   {
     id: "Loyola University Chicago",
     name: "Loyola University Chicago",
-    file: "Loyola University Chicago.svg",
+    file: "Loyola University Chicago.png",
   },
   {
     id: "Marquette University",
@@ -311,11 +311,6 @@ export const SEALS = [
     file: "Rochester Institute of Technology.svg",
   },
   {
-    id: "Rutgers University--Camden",
-    name: "Rutgers University--Camden",
-    file: "Rutgers University--Camden.svg",
-  },
-  {
     id: "Rutgers University--New Brunswick",
     name: "Rutgers University--New Brunswick",
     file: "Rutgers University--New Brunswick.svg",
@@ -324,7 +319,7 @@ export const SEALS = [
   {
     id: "Saint Louis University",
     name: "Saint Louis University",
-    file: "Saint Louis University.svg",
+    file: "Saint Louis University.png",
   },
   {
     id: "San Diego State University",
@@ -713,7 +708,6 @@ export const SEALS = [
     file: "Washington University in St. Louis.svg",
   },
   { id: "William & Mary", name: "William & Mary", file: "William & Mary.png" },
-  { id: "William & Mary", name: "William & Mary", file: "William & Mary.svg" },
   {
     id: "Yale University",
     name: "Yale University",

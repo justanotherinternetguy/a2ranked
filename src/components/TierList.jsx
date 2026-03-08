@@ -221,7 +221,7 @@ export default function TierList() {
       <div className="tierlist">
         <header className="tierlist-header">
           <div className="header-left">
-            <h1>University Seal Tier List</h1>
+            <h1>A2C University Seal Tier List</h1>
             <p>
               US News 2026 Top 150(ish) US universities were scraped and seals
               taken from each school's official Wikipedia page. Contact
